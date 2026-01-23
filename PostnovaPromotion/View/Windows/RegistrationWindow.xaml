@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PostnovaPromotion.View.Windows"
         mc:Ignorable="d"
-        Title="RegistrationWindow" Height="380" Width="350" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="RegistrationWindow" Height="550" Width="350" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
@@ -23,15 +23,21 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="20" />
             <RowDefinition Height="40" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <TextBlock Text="Регистрация в систему" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
+        <TextBlock Text="Регистрация в систему" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
         <TextBlock Text="ФИО:" Grid.Row="1"  VerticalAlignment="Center" HorizontalAlignment="Right" />
         <TextBox  Name="FullnameTb" Grid.Row="1" Grid.Column="2" Width="180" HorizontalAlignment="Left" />
-        <TextBlock Text="Пароль:" Grid.Row="3"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <TextBox  Name="PasswordPb" Grid.Row="3" Grid.Column="2" Width="180" HorizontalAlignment="Left" />
-        <TextBlock Text="Пароль:" Grid.Row="3"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <TextBox  Name="PasswordPb" Grid.Row="3" Grid.Column="2" Width="180" HorizontalAlignment="Left" />
-        <Button Name="LoginBtn" Content="Войти" Width="100" Grid.Row="5" Grid.ColumnSpan="3"/>
+        <TextBlock Text="Телефон:" Grid.Row="3"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBox  Name="PhoneTb" Grid.Row="3" Grid.Column="2" Width="180" HorizontalAlignment="Left" />
+        <TextBlock Text="Логин(эл.почта):" Grid.Row="5"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBox  Name="EmailTb" Grid.Row="5" Grid.Column="2" Width="180" HorizontalAlignment="Left" />
+        <TextBlock Text="Пароль:" Grid.Row="7"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <PasswordBox  Name="PasswordPb" Grid.Row="7" Grid.Column="2" Width="180" HorizontalAlignment="Left" />
+        <TextBlock Text="Повтор пароля:" Grid.Row="9"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <PasswordBox  Name="RepeatPasswordPb" Grid.Row="9" Grid.Column="2" Width="180" HorizontalAlignment="Left" />
+        <Button Name="LoginBtn" Content="Зарегистрироваться" Width="100" Grid.Row="11" Grid.ColumnSpan="3"/>
     </Grid>
 </Window>
