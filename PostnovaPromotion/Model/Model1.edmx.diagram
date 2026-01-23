@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e101081f0c5d487ba0d55aba23a2bb3c" Name="Diagram1">
+        <EntityTypeShape EntityType="PromotionPostnovaModel.Fine" Width="1.5" PointX="9.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PromotionPostnovaModel.Role" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PromotionPostnovaModel.Status" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PromotionPostnovaModel.Stock" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PromotionPostnovaModel.StockConditions" Width="1.5" PointX="7.5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PromotionPostnovaModel.StockStatus" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PromotionPostnovaModel.StockType" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PromotionPostnovaModel.SupervisorReport" Width="1.5" PointX="10.5" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PromotionPostnovaModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PromotionPostnovaModel.User" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="PromotionPostnovaModel.FK_Fine_StockConditions" ManuallyRouted="false" />
+        <AssociationConnector Association="PromotionPostnovaModel.FK_User_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="PromotionPostnovaModel.FK_StockConditions_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="PromotionPostnovaModel.FK_Stock_StockStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="PromotionPostnovaModel.FK_Stock_StockType" ManuallyRouted="false" />
+        <AssociationConnector Association="PromotionPostnovaModel.FK_Stock_User" ManuallyRouted="false" />
+        <AssociationConnector Association="PromotionPostnovaModel.FK_StockConditions_Stock" ManuallyRouted="false" />
+        <AssociationConnector Association="PromotionPostnovaModel.FK_SupervisorReport_Stock" ManuallyRouted="false" />
+        <AssociationConnector Association="PromotionPostnovaModel.FK_StockConditions_User" ManuallyRouted="false" />
+        <AssociationConnector Association="PromotionPostnovaModel.FK_SupervisorReport_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

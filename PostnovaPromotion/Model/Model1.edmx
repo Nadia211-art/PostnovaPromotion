@@ -1,0 +1,707 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище PromotionPostnovaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Fine">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdStockConditions" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Sum" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="IdType" Type="int" Nullable="false" />
+          <Property Name="IdClient" Type="int" Nullable="false" />
+          <Property Name="Place" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="QuantityPromoters" Type="int" Nullable="false" />
+          <Property Name="IdManager" Type="int" Nullable="false" />
+          <Property Name="IdStatus" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StockConditions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdStock" Type="int" Nullable="false" />
+          <Property Name="IdPromoter" Type="int" Nullable="false" />
+          <Property Name="IdStatus" Type="int" Nullable="false" />
+          <Property Name="WorkingHours" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StockStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StockType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SupervisorReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="IdStock" Type="int" Nullable="false" />
+          <Property Name="CheckDate" Type="date" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fullname" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="17" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Passport_number" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="RegistrationDate" Type="date" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nchar" MaxLength="16" Nullable="false" />
+          <Property Name="IdRole" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Fine_StockConditions">
+          <End Role="StockConditions" Type="Self.StockConditions" Multiplicity="1" />
+          <End Role="Fine" Type="Self.Fine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockConditions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fine">
+              <PropertyRef Name="IdStockConditions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_StockStatus">
+          <End Role="StockStatus" Type="Self.StockStatus" Multiplicity="1" />
+          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stock">
+              <PropertyRef Name="IdStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_StockType">
+          <End Role="StockType" Type="Self.StockType" Multiplicity="1" />
+          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stock">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stock">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockConditions_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="StockConditions" Type="Self.StockConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StockConditions">
+              <PropertyRef Name="IdStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockConditions_Stock">
+          <End Role="Stock" Type="Self.Stock" Multiplicity="1" />
+          <End Role="StockConditions" Type="Self.StockConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StockConditions">
+              <PropertyRef Name="IdStock" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockConditions_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="StockConditions" Type="Self.StockConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StockConditions">
+              <PropertyRef Name="IdPromoter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupervisorReport_Stock">
+          <End Role="Stock" Type="Self.Stock" Multiplicity="1" />
+          <End Role="SupervisorReport" Type="Self.SupervisorReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SupervisorReport">
+              <PropertyRef Name="IdStock" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupervisorReport_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="SupervisorReport" Type="Self.SupervisorReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SupervisorReport">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище PromotionPostnovaModelContainer">
+          <EntitySet Name="Fine" EntityType="Self.Fine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockConditions" EntityType="Self.StockConditions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockStatus" EntityType="Self.StockStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockType" EntityType="Self.StockType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupervisorReport" EntityType="Self.SupervisorReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Fine_StockConditions" Association="Self.FK_Fine_StockConditions">
+            <End Role="StockConditions" EntitySet="StockConditions" />
+            <End Role="Fine" EntitySet="Fine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_StockStatus" Association="Self.FK_Stock_StockStatus">
+            <End Role="StockStatus" EntitySet="StockStatus" />
+            <End Role="Stock" EntitySet="Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_StockType" Association="Self.FK_Stock_StockType">
+            <End Role="StockType" EntitySet="StockType" />
+            <End Role="Stock" EntitySet="Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_User" Association="Self.FK_Stock_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Stock" EntitySet="Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockConditions_Status" Association="Self.FK_StockConditions_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="StockConditions" EntitySet="StockConditions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockConditions_Stock" Association="Self.FK_StockConditions_Stock">
+            <End Role="Stock" EntitySet="Stock" />
+            <End Role="StockConditions" EntitySet="StockConditions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockConditions_User" Association="Self.FK_StockConditions_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="StockConditions" EntitySet="StockConditions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupervisorReport_Stock" Association="Self.FK_SupervisorReport_Stock">
+            <End Role="Stock" EntitySet="Stock" />
+            <End Role="SupervisorReport" EntitySet="SupervisorReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupervisorReport_User" Association="Self.FK_SupervisorReport_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="SupervisorReport" EntitySet="SupervisorReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PromotionPostnovaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Fine">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdStockConditions" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Sum" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Reason" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="StockConditions" Relationship="Self.FK_Fine_StockConditions" FromRole="Fine" ToRole="StockConditions" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="StockConditions" Relationship="Self.FK_StockConditions_Status" FromRole="Status" ToRole="StockConditions" />
+        </EntityType>
+        <EntityType Name="Stock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdType" Type="Int32" Nullable="false" />
+          <Property Name="IdClient" Type="Int32" Nullable="false" />
+          <Property Name="Place" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="QuantityPromoters" Type="Int32" Nullable="false" />
+          <Property Name="IdManager" Type="Int32" Nullable="false" />
+          <Property Name="IdStatus" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="StockStatus" Relationship="Self.FK_Stock_StockStatus" FromRole="Stock" ToRole="StockStatus" />
+          <NavigationProperty Name="StockType" Relationship="Self.FK_Stock_StockType" FromRole="Stock" ToRole="StockType" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Stock_User" FromRole="Stock" ToRole="User" />
+          <NavigationProperty Name="StockConditions" Relationship="Self.FK_StockConditions_Stock" FromRole="Stock" ToRole="StockConditions" />
+          <NavigationProperty Name="SupervisorReport" Relationship="Self.FK_SupervisorReport_Stock" FromRole="Stock" ToRole="SupervisorReport" />
+        </EntityType>
+        <EntityType Name="StockConditions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdStock" Type="Int32" Nullable="false" />
+          <Property Name="IdPromoter" Type="Int32" Nullable="false" />
+          <Property Name="IdStatus" Type="Int32" Nullable="false" />
+          <Property Name="WorkingHours" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Fine" Relationship="Self.FK_Fine_StockConditions" FromRole="StockConditions" ToRole="Fine" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_StockConditions_Status" FromRole="StockConditions" ToRole="Status" />
+          <NavigationProperty Name="Stock" Relationship="Self.FK_StockConditions_Stock" FromRole="StockConditions" ToRole="Stock" />
+          <NavigationProperty Name="User" Relationship="Self.FK_StockConditions_User" FromRole="StockConditions" ToRole="User" />
+        </EntityType>
+        <EntityType Name="StockStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Stock" Relationship="Self.FK_Stock_StockStatus" FromRole="StockStatus" ToRole="Stock" />
+        </EntityType>
+        <EntityType Name="StockType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Stock" Relationship="Self.FK_Stock_StockType" FromRole="StockType" ToRole="Stock" />
+        </EntityType>
+        <EntityType Name="SupervisorReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <Property Name="IdStock" Type="Int32" Nullable="false" />
+          <Property Name="CheckDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Comments" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Stock" Relationship="Self.FK_SupervisorReport_Stock" FromRole="SupervisorReport" ToRole="Stock" />
+          <NavigationProperty Name="User" Relationship="Self.FK_SupervisorReport_User" FromRole="SupervisorReport" ToRole="User" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fullname" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="17" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Passport_number" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="16" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="IdRole" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Stock" Relationship="Self.FK_Stock_User" FromRole="User" ToRole="Stock" />
+          <NavigationProperty Name="StockConditions" Relationship="Self.FK_StockConditions_User" FromRole="User" ToRole="StockConditions" />
+          <NavigationProperty Name="SupervisorReport" Relationship="Self.FK_SupervisorReport_User" FromRole="User" ToRole="SupervisorReport" />
+        </EntityType>
+        <Association Name="FK_Fine_StockConditions">
+          <End Role="StockConditions" Type="Self.StockConditions" Multiplicity="1" />
+          <End Role="Fine" Type="Self.Fine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockConditions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fine">
+              <PropertyRef Name="IdStockConditions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockConditions_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="StockConditions" Type="Self.StockConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StockConditions">
+              <PropertyRef Name="IdStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_StockStatus">
+          <End Role="StockStatus" Type="Self.StockStatus" Multiplicity="1" />
+          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stock">
+              <PropertyRef Name="IdStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_StockType">
+          <End Role="StockType" Type="Self.StockType" Multiplicity="1" />
+          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stock">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stock">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockConditions_Stock">
+          <End Role="Stock" Type="Self.Stock" Multiplicity="1" />
+          <End Role="StockConditions" Type="Self.StockConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StockConditions">
+              <PropertyRef Name="IdStock" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupervisorReport_Stock">
+          <End Role="Stock" Type="Self.Stock" Multiplicity="1" />
+          <End Role="SupervisorReport" Type="Self.SupervisorReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SupervisorReport">
+              <PropertyRef Name="IdStock" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockConditions_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="StockConditions" Type="Self.StockConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StockConditions">
+              <PropertyRef Name="IdPromoter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupervisorReport_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="SupervisorReport" Type="Self.SupervisorReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SupervisorReport">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PromotionPostnovaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Fine" EntityType="Self.Fine" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="Stock" EntityType="Self.Stock" />
+          <EntitySet Name="StockConditions" EntityType="Self.StockConditions" />
+          <EntitySet Name="StockStatus" EntityType="Self.StockStatus" />
+          <EntitySet Name="StockType" EntityType="Self.StockType" />
+          <EntitySet Name="SupervisorReport" EntityType="Self.SupervisorReport" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK_Fine_StockConditions" Association="Self.FK_Fine_StockConditions">
+            <End Role="StockConditions" EntitySet="StockConditions" />
+            <End Role="Fine" EntitySet="Fine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockConditions_Status" Association="Self.FK_StockConditions_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="StockConditions" EntitySet="StockConditions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_StockStatus" Association="Self.FK_Stock_StockStatus">
+            <End Role="StockStatus" EntitySet="StockStatus" />
+            <End Role="Stock" EntitySet="Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_StockType" Association="Self.FK_Stock_StockType">
+            <End Role="StockType" EntitySet="StockType" />
+            <End Role="Stock" EntitySet="Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_User" Association="Self.FK_Stock_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Stock" EntitySet="Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockConditions_Stock" Association="Self.FK_StockConditions_Stock">
+            <End Role="Stock" EntitySet="Stock" />
+            <End Role="StockConditions" EntitySet="StockConditions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupervisorReport_Stock" Association="Self.FK_SupervisorReport_Stock">
+            <End Role="Stock" EntitySet="Stock" />
+            <End Role="SupervisorReport" EntitySet="SupervisorReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockConditions_User" Association="Self.FK_StockConditions_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="StockConditions" EntitySet="StockConditions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupervisorReport_User" Association="Self.FK_SupervisorReport_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="SupervisorReport" EntitySet="SupervisorReport" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище PromotionPostnovaModelContainer" CdmEntityContainer="PromotionPostnovaEntities">
+          <EntitySetMapping Name="Fine">
+            <EntityTypeMapping TypeName="PromotionPostnovaModel.Fine">
+              <MappingFragment StoreEntitySet="Fine">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdStockConditions" ColumnName="IdStockConditions" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Sum" ColumnName="Sum" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="PromotionPostnovaModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="PromotionPostnovaModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stock">
+            <EntityTypeMapping TypeName="PromotionPostnovaModel.Stock">
+              <MappingFragment StoreEntitySet="Stock">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="QuantityPromoters" ColumnName="QuantityPromoters" />
+                <ScalarProperty Name="IdManager" ColumnName="IdManager" />
+                <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockConditions">
+            <EntityTypeMapping TypeName="PromotionPostnovaModel.StockConditions">
+              <MappingFragment StoreEntitySet="StockConditions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdStock" ColumnName="IdStock" />
+                <ScalarProperty Name="IdPromoter" ColumnName="IdPromoter" />
+                <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
+                <ScalarProperty Name="WorkingHours" ColumnName="WorkingHours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockStatus">
+            <EntityTypeMapping TypeName="PromotionPostnovaModel.StockStatus">
+              <MappingFragment StoreEntitySet="StockStatus">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockType">
+            <EntityTypeMapping TypeName="PromotionPostnovaModel.StockType">
+              <MappingFragment StoreEntitySet="StockType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupervisorReport">
+            <EntityTypeMapping TypeName="PromotionPostnovaModel.SupervisorReport">
+              <MappingFragment StoreEntitySet="SupervisorReport">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="IdStock" ColumnName="IdStock" />
+                <ScalarProperty Name="CheckDate" ColumnName="CheckDate" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PromotionPostnovaModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="PromotionPostnovaModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Passport_number" ColumnName="Passport_number" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
