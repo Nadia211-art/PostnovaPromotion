@@ -23,5 +23,45 @@ namespace PostnovaPromotion.View.Windows
         {
             InitializeComponent();
         }
+
+        private void LoginBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(LoginTb.Text) || string.IsNullOrEmpty(PasswordPb.Password))
+            {
+                MessageBox.Show("Заполните все поля!", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+
+            }
+            else
+            {
+                App.currentUser = App.context.User.FirstOrDefault(u => u.Email == LoginTb.Text && u.Password == PasswordPb.Password);
+
+                if (App.currentUser != null)
+                {
+                    MessageBox.Show("Вы успешно авторизовались!", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                    if (App.currentUser.Role.Name == "Администратор")
+                    {
+                        AdminWindow administratorWindow = new AdminWindow();
+                        administratorWindow.Show();
+
+
+                        Close();
+                    }
+                    if (App.currentUser.Role.Role1 == "Пользователь")
+                    {
+                        MainWindow mainWindow = new MainWindow();
+                        mainWindow.Show();
+
+                        Close();
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Вы ввели неверный логин или пароль. Пожалуйста проверьте еще раз введенные данные!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                }
+            }
+        }
     }
 }

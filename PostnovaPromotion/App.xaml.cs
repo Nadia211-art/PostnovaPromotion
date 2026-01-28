@@ -15,5 +15,6 @@ namespace PostnovaPromotion
     public partial class App : Application
     {
         public static PromotionPostnovaEntities context = new PromotionPostnovaEntities();
+        public static User currentUser = new User();
     }
 }
