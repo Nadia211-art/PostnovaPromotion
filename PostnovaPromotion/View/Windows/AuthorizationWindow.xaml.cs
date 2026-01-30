@@ -34,23 +34,16 @@ namespace PostnovaPromotion.View.Windows
             }
             else
             {
-                App.currentUser = App.context.User.FirstOrDefault(u => u.Email == LoginTb.Text && u.Password == PasswordPb.Password);
+                App.currentUser = App.context.User.FirstOrDefault(u => u.Login== LoginTb.Text && u.Password == PasswordPb.Password);
 
                 if (App.currentUser != null)
                 {
                     MessageBox.Show("Вы успешно авторизовались!", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
-                    if (App.currentUser.Role.Name == "Администратор")
+                    if (App.currentUser.Role.Name == "Промоутер")
                     {
-                        AdminWindow administratorWindow = new AdminWindow();
-                        administratorWindow.Show();
+                        PromoterStocksWindow promoterStocksWindow = new PromoterStocksWindow();
+                        promoterStocksWindow.Show();
 
-
-                        Close();
-                    }
-                    if (App.currentUser.Role.Role1 == "Пользователь")
-                    {
-                        MainWindow mainWindow = new MainWindow();
-                        mainWindow.Show();
 
                         Close();
                     }
@@ -62,6 +55,14 @@ namespace PostnovaPromotion.View.Windows
 
                 }
             }
+        }
+
+        private void RegistrationBtn_Click(object sender, RoutedEventArgs e)
+        {
+            RegistrationWindow registrationWindow = new RegistrationWindow();   
+            registrationWindow.Show();
+
+            Close();
         }
     }
 }

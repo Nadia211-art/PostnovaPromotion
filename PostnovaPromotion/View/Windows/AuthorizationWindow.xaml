@@ -19,6 +19,8 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="20" />
             <RowDefinition Height="40" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <TextBlock Text="Вход в систему" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
@@ -27,5 +29,6 @@
         <TextBlock Text="Пароль:" Grid.Row="3"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
         <PasswordBox  Name="PasswordPb" Grid.Row="3" Grid.Column="2" Width="180" HorizontalAlignment="Left" />
         <Button Name="LoginBtn" Content="Войти" Width="100" Grid.Row="5" Grid.ColumnSpan="3" Click="LoginBtn_Click"/>
+        <Button Name="RegistrationBtn" Content="Зарегистрироваться" Width="100" Grid.Row="7" Grid.ColumnSpan="3" Click="RegistrationBtn_Click"/>
     </Grid>
 </Window>
